@@ -1,2 +1,2 @@
-# adb
-Script for adb
+# ADB
+Script for Android Debug Bridge
