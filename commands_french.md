@@ -1,0 +1,63 @@
+# Commandes ADB
+## Les bases
+
+adb devices 								-> Affiche les appareils connectés  
+adb help									-> Affiche liste des commandes  
+adb connect 								-> Doit être sur le même wifi et avoir activer l'option Débogage sans fil   -> Faire adb tcpip 5555 en USB puis [IP]:5555  
+
+
+## Allumé/Eteindre
+adb kill-server 							-> Arrete le serveur ADB  
+adb start-server 							-> Relance le server ADB  
+
+
+## Envoie de données
+adb push [source_pc] [destination_tel]		-> Envoie un fichier sur le téléphone  
+adb pull [source_tel] [destination_pc]		-> Copie un fichier du téléphone vers le pc  
+
+
+## Installtation de package
+adb install [nom_du_fichier.apk]			     -> Installe l'APK  
+											-> -r Ecrase l'ancienne version  
+adb uninstall [nom_du_package]				-> Désinstalle l'application  
+adb shell pm list packages					-> Liste des packages  
+
+
+## Redémarrage
+adb reboot									-> Redémarre le téléphone  
+adb reboot recovery							-> Redémarre en mode Recovery  
+adb reboot bootloader						-> Redémarre en mode Bootloader  
+
+
+adb shell screencap -p /sdcard/[nom_fichier]-> Prendre une capture d'écran  
+adb shell input keyevent					-> Simule un appui de touche  
+
+
+## KeyEvent
+3 ->	HOME									-> Retourne à l'écran d'accueil  
+4 ->	BACK									-> Simule le bouton "Retour"  
+187 ->	APP_SWITCH								-> Ouvre le menu des applications récentes (Multitâche)  
+82 ->	MENU									-> Ouvre le menu contextuel (si l'app le supporte)  
+84 ->	SEARCH									-> Lance la recherche  
+26 ->	POWER									-> Allume ou éteint l'écran (ou affiche le menu d'extinction)  
+223 ->	SLEEP									-> Force l'extinction de l'écran (mise en veille)  
+224 ->	WAKEUP									-> Force l'allumage de l'écran  
+24 ->	VOLUME_UP								-> Augmente le volume  
+25 ->	VOLUME_DOWN								-> Baisse le volume  
+164 ->	VOLUME_MUTE								-> Coupe le son  
+85 ->	MEDIA_PLAY_PAUSE						-> Lecture / Pause  
+87 ->	MEDIA_NEXT								-> Piste suivante  
+88 ->	MEDIA_PREVIOUS							-> Piste précédente  
+
+
+
+adb logcat									-> Affiche les logs
+
+
+
+
+
+
+
+
+
