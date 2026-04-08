@@ -2,7 +2,7 @@
 
 # YakusaFire 
 
-# Liste des paquets à supprimer (tu peux en commenter avec un #)
+# List of packages to be removed
 APPS=(
     # --- Social Networks ---
     "com.facebook.katana"        # Facebook
@@ -29,20 +29,18 @@ APPS=(
     "com.samsung.android.game.gos"         # Game Optimizing Service (parfois controversé)
 )
 
-echo "--- Début du nettoyage du Samsung S25 ---"
+echo "--- Start Of Cleaning ---"
 
-# Vérification connexion
+# Test connexion
 if ! adb get-state 1>/dev/null 2>&1; then
-    echo "Erreur : Téléphone non détecté."
+    echo "Erreur : Smartphone not detected."
     exit 1
 fi
 
 for package in "${APPS[@]}"; do
-    echo "Suppression de : $package"
-    # On utilise '|| true' pour que le script continue même si l'app est déjà supprimée
+    echo "$package : Removed"
     adb shell pm uninstall -k --user 0 "$package" > /dev/null 2>&1
 done
 
 echo "---"
-echo "Nettoyage terminé ! Ton téléphone devrait respirer un peu mieux."
-echo "Note : Les applications n'apparaîtront plus, mais reviendront après un 'Reset d'usine'."
+echo "Cleaning finish."
