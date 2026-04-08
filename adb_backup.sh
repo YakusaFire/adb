@@ -17,9 +17,9 @@ echo "--- Backup ---"
 mkdir -p "$DOSSIER_FINAL"
 
 # List of folder, we need to save
-DOSSIERS=("DCIM" "Pictures" "Download" "Music" "Movies" "Documents")
+DOSSIERS="DCIM Pictures Download Music Movies Documents"
 
-for folder in "${DOSSIERS[@]}"; do
+for folder in $DOSSIERS; do
     echo "Copy : $folder..."
     # We create the new folder
     mkdir -p "$DOSSIER_FINAL/$folder"
