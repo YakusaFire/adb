@@ -10,7 +10,7 @@ else
 fi
 
 DATE=$(date +%Y-%m-%d_%Hh%M)
-DOSSIER_FINAL="$DESTINATION/backup_$DATE"
+DOSSIER_FINAL="$DESTINATION/$(adb shell getprop ro.config.marketing_name | sed "s/ /_/g" )_backup_$DATE"
 
 echo "--- Backup ---"
 
