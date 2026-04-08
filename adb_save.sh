@@ -1,8 +1,14 @@
 #!/bin/bash
 
 # YakusaFire
+# Arg1: Destination directory
 
-DESTINATION="$HOME/Documents/ADB"
+if [ $# -eq 0 ]; then
+	DESTINATION="$HOME/Documents/ADB"
+else
+	DESTINATION="$1"
+fi
+
 DATE=$(date +%Y-%m-%d_%Hh%M)
 DOSSIER_FINAL="$DESTINATION/backup_$DATE"
 
