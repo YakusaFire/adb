@@ -1,10 +1,10 @@
 3 -> 	HOME -> Retourne à l'écran d'accueil  
 4 -> 	BACK -> Simule le bouton "Retour"  
-187 ->	APP_SWITCH -> Ouvre le menu des applications récentes (Multitâche)  
-82 ->	MENU -> Ouvre le menu contextuel (si l'app le supporte)  
+187 ->	APP_SWITCH -> Ouvre le menu des applications récentes
+82 ->	MENU -> Ouvre le menu contextuel
 84 ->	SEARCH -> Lance la recherche  
-26 ->	POWER -> Allume ou éteint l'écran (ou affiche le menu d'extinction)  
-223 ->	SLEEP -> Force l'extinction de l'écran (mise en veille)  
+26 ->	POWER -> Allume ou éteint l'écran
+223 ->	SLEEP -> Force l'extinction de l'écran
 224 ->	WAKEUP -> Force l'allumage de l'écran  
 24 ->	VOLUME_UP -> Augmente le volume  
 25 ->	VOLUME_DOWN -> Baisse le volume  

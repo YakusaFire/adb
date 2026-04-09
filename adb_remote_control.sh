@@ -53,7 +53,9 @@ while [ $key -ne 666 ]; do
     fi
 
 
+    # Réalise l'event et affiche ce qu'il fait
     adb shell input keyevent $key
+    cat keyevent.txt | grep "^$key" | cut -d ">" -f 3
     echo ""
 
 done
