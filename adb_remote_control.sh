@@ -11,9 +11,9 @@ echo "---"
 
 while [ $key -ne 666 ]; do
 
-    read -p "Rentré le numéro de KeyEvent à executer: " a >&2
+    read -p "Rentré le numéro de KeyEvent à executer: " key >&2
 
-    if [[ ! $a =~ ^[0-9]+$ ]]; then
+    if [[ ! $key =~ ^[0-9]+$ ]]; then
         echo "Rentrer un nombre entier positif"
         echo ""
         key=0
