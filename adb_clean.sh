@@ -47,7 +47,7 @@ APPS=(
 	"com.google.android.apps.magazines"
 )
 
-echo "--- Start Of Cleaning ---"
+echo "--- Début de la supression des package ---"
 
 # Test connexion
 if ! adb get-state 1>/dev/null 2>&1; then
@@ -60,31 +60,56 @@ for package in "${APPS[@]}"; do
     adb shell pm uninstall -k --user 0 "$package" > /dev/null 2>&1
 done
 
-
-TMP_SUPPR="/tmp/dossier_supr_$RANDOM$RANDOM"
-
-directorys="Android DCIM Documents Download Movies Music Notifications Pictures SuperNDS"
-folders=$(adb shell ls /sdcard/ | tr -d '\r')
-
-{
-    # 2. On affiche les dossiers distants
-    echo "$folders"
-    
-    # 3. On transforme les espaces de ta variable en retours à la ligne
-    echo "$directorys" | tr ' ' '\n'
-
-} | sort | sed '/^$/d' | uniq -u > $TMP_SUPPR
-
-tr '\n' ' ' < "$TMP_SUPPR"
+echo "--- Tout les packages ont été supprimé ---"
 
 
-for folder in $(cat $TMP_SUPPR$); do
-    adb shell rm -rf /sdcard/$folder
-done
 
-rm $TMP_SUPPR
+echo ""
+echo "--- Nettoyage repertoire ---"
+
+# Fichiers temporaires
+TMP_PHONE="/tmp/phone_$RANDOM$RANDOM"
+TMP_KEEP="/tmp/keep_$RANDOM$RANDOM"
+TMP_SUPPR="/tmp/supr_$RANDOM$RANDOM"
+
+# Liste avec séparateur |
+directorys="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS|Photo Editor"
+
+echo "Analyse en cours des répertoires non nécessaire"
+
+# 1. On stocke les dossiers du téléphone dans un fichier
+adb shell ls -1 /sdcard/ | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_PHONE"
+
+# 2. On stocke ta liste de sauvegarde dans un autre fichier
+echo "$directorys" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_KEEP"
+
+# 3. LA NOUVELLE LOGIQUE (grep)
+# -v : Inverser (garder ce qui NE correspond PAS)
+# -F : Texte brut (pas de regex)
+# -x : Ligne entière exacte
+# -f : Utiliser le fichier de référence
+grep -v -F -x -f "$TMP_KEEP" "$TMP_PHONE" > "$TMP_SUPPR"
+
+echo "--- DOSSIERS INTRUS À SUPPRIMER ---"
+# Si le fichier est vide ou n'existe pas (grep n'a rien trouvé)
+if [ ! -s "$TMP_SUPPR" ]; then
+    echo "Aucun dossier à supprimer. Ton téléphone est propre !"
+else
+    cat -e "$TMP_SUPPR"
+    echo "-----------------------------------"
+
+    while read -r folder; do
+        if [ -n "$folder" ]; then
+            echo "Suppression de : /sdcard/$folder"
+            adb shell rm -rf "/sdcard/$folder"
+        fi
+    done < "$TMP_SUPPR"
+fi
 
 
+rm -f "$TMP_PHONE" "$TMP_KEEP" "$TMP_SUPPR"
+echo "---"
+echo "Opération terminée."
 echo "---"
 echo "Cleaning finish."
 exit 0
