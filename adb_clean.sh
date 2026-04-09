@@ -90,19 +90,23 @@ echo "$directorys" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "
 # -f : Utiliser le fichier de référence
 grep -v -F -x -f "$TMP_KEEP" "$TMP_PHONE" > "$TMP_SUPPR"
 
+
 echo "--- DOSSIERS INTRUS À SUPPRIMER ---"
 # Si le fichier est vide ou n'existe pas (grep n'a rien trouvé)
 if [ ! -s "$TMP_SUPPR" ]; then
     echo "Aucun dossier à supprimer. Ton téléphone est propre !"
+
 else
     cat -e "$TMP_SUPPR"
     echo "-----------------------------------"
 
     while read -r folder; do
+
         if [ -n "$folder" ]; then
             echo "Suppression de : /sdcard/$folder"
             adb shell rm -rf "/sdcard/$folder"
         fi
+
     done < "$TMP_SUPPR"
 fi
 
