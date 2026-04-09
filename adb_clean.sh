@@ -61,10 +61,9 @@ for package in "${APPS[@]}"; do
 done
 
 
+TMP_SUPPR="/tmp/dossier_supr_$RANDOM$RANDOM"
 
 directorys="Android DCIM Documents Download Movies Music Notifications Pictures SuperNDS"
-
-# 1. On récupère la liste via ADB et on supprime les '\r' cachés avec tr -d '\r'
 folders=$(adb shell ls /sdcard/ | tr -d '\r')
 
 {
@@ -73,8 +72,19 @@ folders=$(adb shell ls /sdcard/ | tr -d '\r')
     
     # 3. On transforme les espaces de ta variable en retours à la ligne
     echo "$directorys" | tr ' ' '\n'
-} | sort | sed '/^$/d' | uniq -u
+
+} | sort | sed '/^$/d' | uniq -u > $TMP_SUPPR
+
+tr '\n' ' ' < "$TMP_SUPPR"
+
+
+for folder in $(cat $TMP_SUPPR$); do
+    adb shell rm -rf /sdcard/$folder
+done
+
+rm $TMP_SUPPR
 
 
 echo "---"
 echo "Cleaning finish."
+exit 0
