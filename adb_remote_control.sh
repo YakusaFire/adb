@@ -29,6 +29,7 @@ while [ $key -ne 666 ]; do
     if [ $key -eq "1" ]; then
         cat remote_control_key.txt
         echo ""
+        continue
     fi
 
 
@@ -77,7 +78,7 @@ while [ $key -ne 666 ]; do
             ./adb_backup.sh
             echo ""
             continue
-            
+
         else
             echo "---"
             echo "Annulation de la backup"
