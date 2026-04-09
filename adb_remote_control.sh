@@ -69,7 +69,7 @@ while [ $key -ne 666 ]; do
     fi
 
 
-    # Faire une backup
+    # Lance le script de backup
     if [ $key -eq "504" ]; then
         
         read -p "Vous voulez vraiment effectuer une backup (Y/N): " resp_504
@@ -77,10 +77,14 @@ while [ $key -ne 666 ]; do
             ./adb_backup.sh
             echo ""
             continue
+            
         else
             echo "---"
             echo "Annulation de la backup"
             echo "---"
+
+        fi
+    fi
 
 
 
