@@ -1,4 +1,4 @@
 666 -> Stop script
-1 -> Dévérouiller téléphone
+503 -> Dévérouiller téléphone
 501 -> Affiche les keyevents
 502 -> Clean le téléphone
