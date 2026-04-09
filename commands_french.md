@@ -4,6 +4,7 @@
 adb devices 								-> Affiche les appareils connectés  
 adb help									-> Affiche liste des commandes  
 adb connect 								-> Doit être sur le même wifi et avoir activer l'option Débogage sans fil   -> Faire adb tcpip 5555 en USB puis [IP]:5555  
+adb shell input text "VotreTexte"
 
 
 ## Allumé/Eteindre
@@ -34,12 +35,3 @@ adb shell input keyevent					-> Simule un appui de touche
 
 
 adb logcat									-> Affiche les logs
-
-
-
-
-
-
-
-
-

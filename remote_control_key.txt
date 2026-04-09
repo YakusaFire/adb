@@ -1,6 +1,6 @@
 666 -> Stop script
-501 -> Affiche les keyevents
-502 -> Clean le téléphone
-503 -> Dévérouiller téléphone
-504 -> Effectue une backup
+501 -> Show keyevents
+502 -> Clean package smartphone
+503 -> Unlock smartphone
+504 -> Do backup
  
