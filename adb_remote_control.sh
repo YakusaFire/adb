@@ -48,8 +48,18 @@ while [ $key -ne 666 ]; do
     # Lance le script de nétoyage du téléphone
     if [ $key -eq "502" ]; then
 
-        ./adb_clean.sh
-        echo ""
+        read -p "Vous voulez vraiment clean votre téléphone (Y/N): " resp
+        if [ "$resp" == "Y" ] || [ "$resp" == "y" ]; then
+            ./adb_clean.sh
+            echo ""
+            continue
+
+        else
+            echo "---"
+            echo "Annulation du nettoyage"
+            echo "---"
+
+        fi
     fi
 
 
