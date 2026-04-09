@@ -73,7 +73,7 @@ TMP_KEEP="/tmp/keep_$RANDOM$RANDOM"
 TMP_SUPPR="/tmp/supr_$RANDOM$RANDOM"
 
 # Liste avec séparateur |
-directorys="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS|Photo Editor"
+directorys="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS"
 
 echo "Analyse en cours des répertoires non nécessaire"
 
