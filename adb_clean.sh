@@ -60,5 +60,21 @@ for package in "${APPS[@]}"; do
     adb shell pm uninstall -k --user 0 "$package" > /dev/null 2>&1
 done
 
+
+
+directorys="Android DCIM Documents Download Movies Music Notifications Pictures SuperNDS"
+
+# 1. On récupère la liste via ADB et on supprime les '\r' cachés avec tr -d '\r'
+folders=$(adb shell ls /sdcard/ | tr -d '\r')
+
+{
+    # 2. On affiche les dossiers distants
+    echo "$folders"
+    
+    # 3. On transforme les espaces de ta variable en retours à la ligne
+    echo "$directorys" | tr ' ' '\n'
+} | sort | sed '/^$/d' | uniq -u
+
+
 echo "---"
 echo "Cleaning finish."
