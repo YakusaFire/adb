@@ -12,7 +12,9 @@ echo "---"
 # Boucle de la télécommande
 while [ $key -ne 666 ]; do
 
+
     read -p "Rentré le numéro de KeyEvent à executer: " key >&2
+
 
     # Blindage seulement entier positif
     if [[ ! $key =~ ^[0-9]+$ ]]; then
@@ -22,17 +24,20 @@ while [ $key -ne 666 ]; do
         continue
     fi
 
+
     # Affiche les commandes de la télécommande
     if [ $key -eq "1" ]; then
         cat remote_control_key.txt
         echo ""
     fi
 
+
     # Affiche les keyevent ADB
     if [ $key -eq "501" ]; then
         cat keyevent.txt
         echo ""
     fi
+
 
     # Permet de débloquer le téléphone
     if [ $key -eq "503" ]; then
@@ -45,11 +50,12 @@ while [ $key -ne 666 ]; do
         echo ""
     fi
 
+
     # Lance le script de nétoyage du téléphone
     if [ $key -eq "502" ]; then
 
-        read -p "Vous voulez vraiment clean votre téléphone (Y/N): " resp
-        if [ "$resp" == "Y" ] || [ "$resp" == "y" ]; then
+        read -p "Vous voulez vraiment clean votre téléphone (Y/N): " resp_502
+        if [ "$resp_502" == "Y" ] || [ "$resp_502" == "y" ]; then
             ./adb_clean.sh
             echo ""
             continue
@@ -63,9 +69,27 @@ while [ $key -ne 666 ]; do
     fi
 
 
+    # Faire une backup
+    if [ $key -eq "504" ]; then
+        
+        read -p "Vous voulez vraiment effectuer une backup (Y/N): " resp_504
+        if [ "$resp_504" == "Y" ] || [ "$resp_504" == "y" ]; then
+            ./adb_backup.sh
+            echo ""
+            continue
+        else
+            echo "---"
+            echo "Annulation de la backup"
+            echo "---"
+
+
+
     # Réalise l'event et affiche ce qu'il fait.
     adb shell input keyevent $key
     cat keyevent.txt | grep "^$key" | cut -d ">" -f 3
     echo ""
 
+
+
 done
+exit 0
