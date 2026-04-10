@@ -67,32 +67,32 @@ echo "--- Tout les packages ont été supprimé ---"
 echo ""
 echo "--- Nettoyage repertoire ---"
 
-# Fichiers temporaires
+# TMP file
 TMP_PHONE="/tmp/phone_$RANDOM$RANDOM"
 TMP_KEEP="/tmp/keep_$RANDOM$RANDOM"
 TMP_SUPPR="/tmp/supr_$RANDOM$RANDOM"
 
-# Liste avec séparateur |
+# Keep folder
 directorys="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS"
 
 echo "Analyse en cours des répertoires non nécessaire"
 
-# 1. On stocke les dossiers du téléphone dans un fichier
+# All folder in /sdcard/
 adb shell ls -1 /sdcard/ | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_PHONE"
 
-# 2. On stocke ta liste de sauvegarde dans un autre fichier
+# Stock content of directorys in TMP file
 echo "$directorys" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_KEEP"
 
-# 3. LA NOUVELLE LOGIQUE (grep)
-# -v : Inverser (garder ce qui NE correspond PAS)
-# -F : Texte brut (pas de regex)
-# -x : Ligne entière exacte
-# -f : Utiliser le fichier de référence
+# GREP
+# -v : reverse
+# -F : Text brut
+# -x : full ligne
+# -f : TMP_KEEP reference
 grep -v -F -x -f "$TMP_KEEP" "$TMP_PHONE" > "$TMP_SUPPR"
 
 
 echo "--- DOSSIERS INTRUS À SUPPRIMER ---"
-# Si le fichier est vide ou n'existe pas (grep n'a rien trouvé)
+# If folder empty
 if [ ! -s "$TMP_SUPPR" ]; then
     echo "Aucun dossier à supprimer. Ton téléphone est propre !"
 
@@ -103,7 +103,7 @@ else
     while read -r folder; do
 
         if [ -n "$folder" ]; then
-            echo "Suppression de : /sdcard/$folder"
+            echo "Removed : /sdcard/$folder"
             adb shell rm -rf "/sdcard/$folder"
         fi
 
@@ -112,8 +112,6 @@ fi
 
 
 rm -f "$TMP_PHONE" "$TMP_KEEP" "$TMP_SUPPR"
-echo "---"
-echo "Opération terminée."
-echo "---"
+echo ""
 echo "Cleaning finish."
 exit 0
