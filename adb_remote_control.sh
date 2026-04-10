@@ -5,27 +5,27 @@
 
 key=0
 echo "---"
-echo "Taper '1' pour afficher les commandes remote_control"
+echo "Press '1' for see remote_control commands"
 echo "---"
 
 
-# Boucle de la télécommande
+# Loop of remote_control
 while [ $key -ne 666 ]; do
 
 
-    read -p "Rentré le numéro de KeyEvent à executer: " key >&2
+    read -p "Enter the KeyEvent number: " key >&2
 
 
-    # Blindage seulement entier positif
+    # shielding for only interger
     if [[ ! $key =~ ^[0-9]+$ ]]; then
-        echo "Rentrer un nombre entier positif"
+        echo "Enter a positive integer"
         echo ""
         key=0
         continue
     fi
 
 
-    # Affiche les commandes de la télécommande
+    # Print the remote_control commands
     if [ $key -eq "1" ]; then
         cat remote_control_key.txt
         echo ""
