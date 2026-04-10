@@ -33,14 +33,14 @@ while [ $key -ne 666 ]; do
     fi
 
 
-    # Affiche les keyevent ADB
+    # Print keyevent
     if [ $key -eq "501" ]; then
         cat keyevent.txt
         echo ""
     fi
 
 
-    # Permet de débloquer le téléphone
+    # Unlock the smartphone
     if [ $key -eq "503" ]; then
 
         adb shell input keyevent 223
@@ -52,10 +52,10 @@ while [ $key -ne 666 ]; do
     fi
 
 
-    # Lance le script de nétoyage du téléphone
+    # Launch adb_clean.sh script
     if [ $key -eq "502" ]; then
 
-        read -p "Vous voulez vraiment clean votre téléphone (Y/N): " resp_502
+        read -p "You realy want to clean your smartphone(Y/N): " resp_502
         if [ "$resp_502" == "Y" ] || [ "$resp_502" == "y" ]; then
             ./adb_clean.sh
             echo ""
@@ -63,17 +63,17 @@ while [ $key -ne 666 ]; do
 
         else
             echo "---"
-            echo "Annulation du nettoyage"
+            echo "Cancel cleaning"
             echo "---"
 
         fi
     fi
 
 
-    # Lance le script de backup
+    # Launch adb_backup.sh script
     if [ $key -eq "504" ]; then
         
-        read -p "Vous voulez vraiment effectuer une backup (Y/N): " resp_504
+        read -p "You realy want to do backup (Y/N): " resp_504
         if [ "$resp_504" == "Y" ] || [ "$resp_504" == "y" ]; then
             ./adb_backup.sh
             echo ""
@@ -81,7 +81,7 @@ while [ $key -ne 666 ]; do
 
         else
             echo "---"
-            echo "Annulation de la backup"
+            echo "Cancel backup"
             echo "---"
 
         fi
@@ -89,7 +89,7 @@ while [ $key -ne 666 ]; do
 
 
 
-    # Réalise l'event et affiche ce qu'il fait.
+    # Do event and print what it does
     adb shell input keyevent $key
     cat keyevent.txt | grep "^$key" | cut -d ">" -f 3
     echo ""
