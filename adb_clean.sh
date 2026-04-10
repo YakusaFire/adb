@@ -47,7 +47,7 @@ APPS=(
 	"com.google.android.apps.magazines"
 )
 
-echo "--- Début de la supression des package ---"
+echo "--- Start of package removal ---"
 
 # Test connexion
 if ! adb get-state 1>/dev/null 2>&1; then
@@ -60,12 +60,12 @@ for package in "${APPS[@]}"; do
     adb shell pm uninstall -k --user 0 "$package" > /dev/null 2>&1
 done
 
-echo "--- Tout les packages ont été supprimé ---"
+echo "--- All packages have been removed ---"
 
 
 
 echo ""
-echo "--- Nettoyage repertoire ---"
+echo "--- Cleaning folder ---"
 
 # TMP file
 TMP_PHONE="/tmp/phone_$RANDOM$RANDOM"
@@ -73,15 +73,15 @@ TMP_KEEP="/tmp/keep_$RANDOM$RANDOM"
 TMP_SUPPR="/tmp/supr_$RANDOM$RANDOM"
 
 # Keep folder
-directorys="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS"
+directories="Android|DCIM|Documents|Download|Movies|Music|Notifications|Pictures|SuperNDS"
 
-echo "Analyse en cours des répertoires non nécessaire"
+echo "Scanning of directories not required"
 
 # All folder in /sdcard/
 adb shell ls -1 /sdcard/ | tr -d '\r' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_PHONE"
 
 # Stock content of directorys in TMP file
-echo "$directorys" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_KEEP"
+echo "$directories" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "$TMP_KEEP"
 
 # GREP
 # -v : reverse
@@ -91,10 +91,10 @@ echo "$directorys" | tr '|' '\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > "
 grep -v -F -x -f "$TMP_KEEP" "$TMP_PHONE" > "$TMP_SUPPR"
 
 
-echo "--- DOSSIERS INTRUS À SUPPRIMER ---"
+echo "--- UNWANTED FOLDER TO BE DELETED ---"
 # If folder empty
 if [ ! -s "$TMP_SUPPR" ]; then
-    echo "Aucun dossier à supprimer. Ton téléphone est propre !"
+    echo "Any folder need to be removed. Your smartphone is clean !"
 
 else
     cat -e "$TMP_SUPPR"
