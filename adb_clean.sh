@@ -47,6 +47,10 @@ APPS=(
 	"com.google.android.apps.magazines"
 )
 
+if [ $# -gt 0 ]; then
+    echo "Don't put argument"
+    exit 1
+
 echo "--- Start of package removal ---"
 
 # Test connexion
