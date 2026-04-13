@@ -1,5 +1,5 @@
 # Commandes ADB
-## Les bases
+## Les bases
 
 adb devices 								-> Affiche les appareils connectés  
 adb help									-> Affiche liste des commandes  

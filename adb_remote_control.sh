@@ -5,7 +5,7 @@
 
 key=0
 echo "---"
-echo "Press '1' for see remote_control commands"
+echo "Press '1' for see remote_control key"
 echo "---"
 
 
@@ -86,6 +86,8 @@ while [ $key -ne 666 ]; do
 
         fi
     fi
+
+
 
 
 
