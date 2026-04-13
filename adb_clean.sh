@@ -50,6 +50,7 @@ APPS=(
 if [ $# -gt 0 ]; then
     echo "Don't put argument"
     exit 1
+fi
 
 echo "--- Start of package removal ---"
 
